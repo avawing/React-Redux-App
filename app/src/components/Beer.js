@@ -71,7 +71,7 @@ function Beer(props) {
         </CardBody>
       </Card>
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Modal title</ModalHeader>
         <ModalBody>
           {/* map over ingredients with <CardText> </CardText> */}

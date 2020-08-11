@@ -10,3 +10,5 @@ function BeerList(props){
         </div>
     )
 }
+
+export default BeerList
