@@ -16,25 +16,6 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 
-/*const mapStateTobeer = (state) => {
-  return {
-    //main card
-    name: state.name,
-    tagline: state.tagline,
-    image_url: state.image_url,
-    first_brewed: state.first_brewed,
-    contributed_by: state.contributed_by,
-    description: state.description,
-    //food pairing
-    food_pairing: state.food_pairing,
-    //method
-    method: state.method,
-    brewers_tips: state.brewers_tips,
-    //ingredients
-    ingredients: state.ingredients,
-  };
-};*/
-
 const Beer = (props) => {
   //styling
   const {beer} = props;

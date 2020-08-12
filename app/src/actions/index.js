@@ -9,7 +9,7 @@ export const fetchData = () => (dispatch) => {
     type: FETCH_BEER_START,
   });
   axios
-    .get("https://api.punkapi.com/v2/beers?ibu_lt=48&ibt_gt=9")
+    .get("https://api.punkapi.com/v2/beers?ibu_lt=48&ibt_gt=9&per_page=80")
     .then((res) =>
       dispatch({ type: FETCH_BEER_SUCCESS, payload: res.data })
     )

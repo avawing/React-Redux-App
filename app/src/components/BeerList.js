@@ -17,7 +17,7 @@ function BeerList(props) {
   return (
       <>
       <h1>Beers with Reasonable IBU</h1>
-      {props.beers.length > 0 ? <CardDeck>{props.beers.map(beer => {return <Beer  beer = {beer}/>})}</CardDeck> : <Button style = {{textAlign: 'center'}}>Fetch Beer!</Button>}
+      {props.beers.length > 0 ? <CardDeck>{props.beers.map(beer => {return <Beer  beer = {beer}/>})}</CardDeck> : <div>THERE IS NO REASONABLE BEER!</div>}
       {props.isLoading ? <h2>Fetching Beer...</h2> : null}
     
         
