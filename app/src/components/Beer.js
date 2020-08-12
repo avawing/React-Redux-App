@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
+/*const mapStateTobeer = (state) => {
   return {
     //main card
     name: state.name,
@@ -33,10 +33,11 @@ const mapStateToProps = (state) => {
     //ingredients
     ingredients: state.ingredients,
   };
-};
+};*/
 
 const Beer = (props) => {
   //styling
+  const {beer} = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleFood = () => setIsOpen(!isOpen);
@@ -50,21 +51,21 @@ const Beer = (props) => {
     <div>
       <Card style={{ maxWidth: 300 }}>
         <CardBody>
-          <CardTitle>{props.name}</CardTitle>
-          <CardSubtitle>{props.tagline}</CardSubtitle>
+          <CardTitle>{beer.name}</CardTitle>
+          <CardSubtitle>{beer.tagline}</CardSubtitle>
         </CardBody>
         <CardImg
           style={{ maxHeight: 300, maxWidth: 100, alignSelf: "center" }}
           width="100%"
-          src={props.image_url}
-          alt={props.name}
+          src={beer.image_url}
+          alt={beer.name}
         />
         <CardBody>
           <CardSubtitle>
-            {props.contributed_by}
-            {props.first_brewed}
+            {beer.contributed_by}
+            {beer.first_brewed}
           </CardSubtitle>
-          <CardText>{props.description}</CardText>
+          <CardText>{beer.description}</CardText>
 
           <ButtonGroup>
             <Button
@@ -93,7 +94,7 @@ const Beer = (props) => {
           <Collapse isOpen={isOpen}>
             <Card>
               <CardBody>
-                {props.food_pairing.map((item) => {
+                {beer.food_pairing.map((item) => {
                   return <CardText> {item} </CardText>;
                 })}
               </CardBody>
@@ -103,7 +104,7 @@ const Beer = (props) => {
           <Collapse isOpen={mIsOpen}>
             <Card>
               <CardBody>
-                {props.method.mash_temp.map((piece) => {
+                {beer.method.mash_temp.map((piece) => {
                   return (
                     <CardText>
                       Mash at {piece.temp.value} degrees {piece.temp.unit} for{" "}
@@ -112,11 +113,11 @@ const Beer = (props) => {
                   );
                 })}
                 <CardText>
-                  Ferment at {props.method.fermentation.temp.value} degrees{" "}
-                  {props.method.fermentation.unit}.
+                  Ferment at {beer.method.fermentation.temp.value} degrees{" "}
+                  {beer.method.fermentation.unit}.
                 </CardText>
-                <CardText>{props.method.twist}</CardText>
-                <CardText>{props.brewers_tips}</CardText>
+                <CardText>{beer.method.twist}</CardText>
+                <CardText>{beer.brewers_tips}</CardText>
               </CardBody>
             </Card>
           </Collapse>
@@ -127,7 +128,7 @@ const Beer = (props) => {
         <ModalHeader toggle={toggle}>Ingredients</ModalHeader>
         <ModalBody>
           Malt:
-          {props.ingredients.malt.map((malt) => {
+          {beer.ingredients.malt.map((malt) => {
             return (
               <CardText>
                 {malt.name} : {malt.amount.value}
@@ -136,7 +137,7 @@ const Beer = (props) => {
             );
           })}
           Hops:
-          {props.ingredients.hops.map((hops) => {
+          {beer.ingredients.hops.map((hops) => {
             return (
               <CardText>
                 {hops.name} : {hops.amount.value}
@@ -144,7 +145,7 @@ const Beer = (props) => {
               </CardText>
             );
           })}
-          Yeast:<CardText>{props.ingredients.yeast}</CardText>
+          Yeast:<CardText>{beer.ingredients.yeast}</CardText>
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={toggle}>
@@ -156,4 +157,4 @@ const Beer = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(Beer);
+export default Beer;

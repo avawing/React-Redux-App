@@ -9,14 +9,15 @@ export const fetchData = () => (dispatch) => {
     type: FETCH_BEER_START,
   });
   axios
-    .get("https://api.punkapi.com/v2/beers")
+    .get("https://api.punkapi.com/v2/beers?ibu_lt=48&ibt_gt=9")
     .then((res) =>
-      dispatch({ type: FETCH_BEER_SUCCESS, payload: res.data.results })
+      dispatch({ type: FETCH_BEER_SUCCESS, payload: res.data })
     )
     .catch((e) =>
       dispatch({
         type: FETCH_BEER_FAIL,
-        payload: `${e.response.status} ${e.response.data}`,
+        payload: `${e}`,
       })
+
     );
 };
