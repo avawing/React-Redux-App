@@ -1,4 +1,4 @@
-const initialState = [
+const initialState = 
   {
     id: 118,
     name: "Bounty Hunter - Shareholder Brew",
@@ -53,8 +53,8 @@ const initialState = [
     brewers_tips:
       "Lightly toast the coconut chips to allow better interaction with the hot wort.",
     contributed_by: "Sam Mason <samjbmason>",
-  },
-];
+  }
+;
 
 function reducer(state = initialState, action) {
   return state;

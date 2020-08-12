@@ -6,7 +6,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  UncontrolledCollapse,
+  Collapse,
   Button,
   Modal,
   ModalHeader,
@@ -14,74 +14,92 @@ import {
   ModalFooter,
   ButtonGroup,
 } from "reactstrap";
+import {connect} from 'react-redux'
 
-function Beer(props) {
+const mapStateToProps = (state) => {
+    return {
+        //main card
+        name: state.name,
+        tagline: state.tagline,
+        image_url: state.image_url,
+        first_brewed: state.first_brewed,
+        contributed_by: state.contributed_by,
+        description: state.description,
+        //food pairing
+        food_pairing: state.food_pairing,
+        //method
+        method: state.method,
+        brewers_tips: state.brewers_tips,
+        //ingredients
+        ingredients: state.ingredients
+    }}
+
+
+const Beer=(props)=>{
   //styling
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleFood = () => setIsOpen(!isOpen);
+  const [mIsOpen, setMIsOpen] = useState(false);
+  const toggleMethod = () => setMIsOpen(!mIsOpen);
+
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
   return (
     <div>
-      <Card>
-        <CardBody>
-          <CardTitle>{/* Name */}</CardTitle>
-          <CardSubtitle>{/* Tagline */}</CardSubtitle>
+      <Card style = {{maxWidth: 300}}>
+        <CardBody >
+          <CardTitle>{props.name}</CardTitle>
+          <CardSubtitle>{props.tagline}</CardSubtitle>
         </CardBody>
-        <CardImg width="100%" src="/assets/318x180.svg" alt="Card image cap" />
-        {/* image_url */}
+        <CardImg style = {{maxHeight: 300, maxWidth: 100, alignSelf: 'center'}} width="100%" src={props.image_url} alt={props.name} />
         <CardBody>
-          <CardSubtitle>{/* first_brewed, contributed_by */}</CardSubtitle>
-          <CardText>{/* Description*/}</CardText>
+            <CardSubtitle>{props.contributed_by}{props.first_brewed}</CardSubtitle>
+          <CardText>{props.description}</CardText>
 
           <ButtonGroup>
-            <Button
-              color="primary"
-              id="toggler1"
-              style={{ marginBottom: "1rem" }}
-            >
-              Food Pairing
-            </Button>
-            <Button
-              color="primary"
-              id="toggler2"
-              style={{ marginBottom: "1rem" }}
-            >
+            <Button color="primary" onClick={toggleFood} style={{ marginBottom: '1rem' }}>Food Pairing</Button>
+            <Button color="primary" onClick={toggleMethod} style={{ marginBottom: '1rem' }}>
               Method
             </Button>
-            <Button color="danger" onClick={toggle}>
+            <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem' }}>
               Ingredients
             </Button>
           </ButtonGroup>
 
-          <UncontrolledCollapse toggler="#toggler1">
+          <Collapse isOpen={isOpen}>
             <Card>
               <CardBody>
-                {/* map over food_pairing with <CardText> </CardText> */}
-              </CardBody>
-            </Card>
-          </UncontrolledCollapse>
+                {props.food_pairing.map(item => {return <CardText> {item} </CardText>})}
 
-          <UncontrolledCollapse toggler="#toggler2">
-            <Card>
-              <CardBody>
-                {/* map over method with <CardText> </CardText> */}
               </CardBody>
             </Card>
-          </UncontrolledCollapse>
+          </Collapse>
+
+          <Collapse isOpen={mIsOpen}>
+            <Card>
+              <CardBody>
+              {props.method.mash_temp.map(piece => {return <CardText>Mash at {piece.temp.value} degrees {piece.temp.unit} for {piece.duration} minutes.</CardText>})}
+              <CardText>Ferment at {props.method.fermentation.temp.value} degrees {props.method.fermentation.unit}.</CardText>
+              <CardText>{props.method.twist}</CardText>
+              <CardText>{props.brewers_tips}</CardText>
+              </CardBody>
+            </Card>
+          </Collapse>
         </CardBody>
       </Card>
 
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalHeader toggle={toggle}>Ingredients</ModalHeader>
         <ModalBody>
-          {/* map over ingredients with <CardText> </CardText> */}
+          Malt:{props.ingredients.malt.map(malt => {return <CardText>{malt.name} : {malt.amount.value}{malt.amount.unit} </CardText>}) }
+          Hops:{props.ingredients.hops.map(hops => {return <CardText>{hops.name} : {hops.amount.value}{hops.amount.unit} </CardText>}) }
+          Yeast:<CardText>{props.ingredients.yeast}</CardText>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Do Something
-          </Button>{" "}
           <Button color="secondary" onClick={toggle}>
-            Cancel
+            Close
           </Button>
         </ModalFooter>
       </Modal>
@@ -89,4 +107,4 @@ function Beer(props) {
   );
 }
 
-export default Beer
+export default connect(mapStateToProps)(Beer)
