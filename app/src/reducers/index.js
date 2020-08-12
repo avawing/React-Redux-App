@@ -1,3 +1,5 @@
+import {FETCH_BEER_START, FETCH_BEER_SUCCESS, FETCH_BEER_FAIL} from '../actions'
+
 const initialState = 
   {
     id: 118,
