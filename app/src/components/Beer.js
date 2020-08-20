@@ -14,7 +14,6 @@ import {
   ModalFooter,
   ButtonGroup,
 } from "reactstrap";
-import { connect } from "react-redux";
 
 const Beer = (props) => {
   //styling
@@ -22,6 +21,7 @@ const Beer = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleFood = () => setIsOpen(!isOpen);
+  
   const [mIsOpen, setMIsOpen] = useState(false);
   const toggleMethod = () => setMIsOpen(!mIsOpen);
 
